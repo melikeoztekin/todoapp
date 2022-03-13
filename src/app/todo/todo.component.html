@@ -14,7 +14,12 @@
         <input type="checkbox" class="form-check-input" name="" id="displayAll" [(ngModel)]="displayAll">
         <label for="displayAll" class="form-check-label">Show All</label>
       </div>
-      <table class="table table-bordered">
+      <div class="alert alert-warning" *ngIf="getItems().length == 0">
+        <!-- Eleman sayısı 0 a eşitse listede eleman yok uyarısını göster -->
+        Element not found to display in the list
+      </div>
+      <table class="table table-bordered" *ngIf="getItems().length > 0">
+        <!-- ngIf ile başlangıçta görünecek liste elemenı sayısı eğer 0 dan büyük ise göster koşulunu uyguladık -->
         <thead>
           <tr>
             <th></th>
@@ -27,7 +32,15 @@
           <tr *ngFor="let item of getItems(); let i=index;">
             <td>{{ i+1 }}</td>
             <td>{{ item.description }}</td>
-            <td>{{ item.action }}</td>
+            <td>
+              <!-- <div *ngIf="item.action">Yes</div>
+              <div *ngIf="!item.action">No</div> -->
+              <!-- ngIf ile kontrol yerine switch ile de item.action ın true false değerlerine göre yes veya no yazdırma yolunu kullanabiliriz -->
+              <div [ngSwitch]="item.action">
+                <div *ngSwitchCase="true">Yes</div>
+                <div *ngSwitchDefault>No</div>
+              </div>
+            </td>
             <td><input type="checkbox" [(ngModel)]="item.action"></td>
           </tr>
         </tbody>
