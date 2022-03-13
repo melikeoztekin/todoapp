@@ -7,10 +7,10 @@ export class Model{
     constructor(){
         this.name="Melike";
         this.items=[
-            { description: "breakfast", action:"yes" },
-            { description: "sport", action:"yes" },
-            { description: "shop", action:"no" },
-            { description: "reading", action:"no" }
+            { description: "breakfast", action: true },
+            { description: "sport", action: false },
+            { description: "shop", action: true },
+            { description: "reading", action: false }
         ];
     }
 }

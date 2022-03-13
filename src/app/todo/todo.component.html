@@ -11,7 +11,7 @@
         </button>
       </div>
       <div class="form-check mb-3">
-        <input type="checkbox" class="form-check-input" name="" id="displayAll">
+        <input type="checkbox" class="form-check-input" name="" id="displayAll" [(ngModel)]="displayAll">
         <label for="displayAll" class="form-check-label">Show All</label>
       </div>
       <table class="table table-bordered">
@@ -20,6 +20,7 @@
             <th></th>
             <th>Description</th>
             <th>Action</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -27,6 +28,7 @@
             <td>{{ i+1 }}</td>
             <td>{{ item.description }}</td>
             <td>{{ item.action }}</td>
+            <td><input type="checkbox" [(ngModel)]="item.action"></td>
           </tr>
         </tbody>
       </table>
