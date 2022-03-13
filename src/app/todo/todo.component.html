@@ -5,8 +5,8 @@
         {{ getName() }}' To-Do List
       </h3>
       <div class="input-group mb-3">
-        <input type="text" class="form-control">
-        <button class="btn btn-outline-dark">
+        <input #txtItem type="text" class="form-control" (keyup.enter)="addItem(txtItem.value); txtItem.value='' ">
+        <button class="btn btn-outline-dark" (click)="addItem(txtItem.value); txtItem.value='' ">
           Add
         </button>
       </div>
@@ -14,6 +14,7 @@
         <input type="checkbox" class="form-check-input" name="" id="displayAll">
         <label for="displayAll" class="form-check-label">Show All</label>
       </div>
+      {{ message }}
       <table class="table table-bordered">
         <thead>
           <tr>

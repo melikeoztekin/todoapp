@@ -44,4 +44,18 @@ export class TodoComponent {
   getItems(){
     return this.model.items;
   }
+  message="";
+
+  /*addItem(txtItem:any){
+    console.log(txtItem.value);
+  }*/
+  addItem(value:string){
+    if(value != ""){
+    this.model.items.push({ description: value, action:"no" });
+  }else{
+    alert("Fields cannot be left blank.")
+  }
+  }
+
+
 }
