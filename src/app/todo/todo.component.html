@@ -14,37 +14,70 @@
         <input type="checkbox" class="form-check-input" name="" id="displayAll" [(ngModel)]="displayAll">
         <label for="displayAll" class="form-check-label">Show All</label>
       </div>
-      <div class="alert alert-warning" *ngIf="getItems().length == 0">
-        <!-- Eleman sayısı 0 a eşitse listede eleman yok uyarısını göster -->
-        Element not found to display in the list
+
+      <div class="my-2">
+        <strong>{{ displayCount() }}</strong> missions completed.
       </div>
-      <table class="table table-bordered" *ngIf="getItems().length > 0">
-        <!-- ngIf ile başlangıçta görünecek liste elemenı sayısı eğer 0 dan büyük ise göster koşulunu uyguladık -->
-        <thead>
-          <tr>
-            <th></th>
-            <th>Description</th>
-            <th>Action</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of getItems(); let i=index;">
-            <td>{{ i+1 }}</td>
-            <td>{{ item.description }}</td>
-            <td>
-              <!-- <div *ngIf="item.action">Yes</div>
-              <div *ngIf="!item.action">No</div> -->
-              <!-- ngIf ile kontrol yerine switch ile de item.action ın true false değerlerine göre yes veya no yazdırma yolunu kullanabiliriz -->
-              <div [ngSwitch]="item.action">
-                <div *ngSwitchCase="true">Yes</div>
-                <div *ngSwitchDefault>No</div>
-              </div>
-            </td>
-            <td><input type="checkbox" [(ngModel)]="item.action"></td>
-          </tr>
-        </tbody>
-      </table>
+
+      <div class="alert alert-warning" *ngIf="getItems().length == 0 else itemsTable">
+        <!-- Eleman sayısı 0 a eşitse listede eleman yok uyarısını göster -->
+        <!-- eleman sayısı 0 dan büyük olduğu durumda itemsTable temmplate i çalıştır -->
+        All missions completed.
+      </div>
+
+      <ng-template #itemsTable>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Description</th>
+              <th>Action</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of getItems(); let i=index;">
+              <td>{{ i+1 }}</td>
+              <td>{{ item.description }}</td>
+              <td>
+                <!-- item.action ın true false değerlerine göre yes veya no yazdırma yolunu kullanabiliriz -->
+
+                <!-- If bloğu -->
+                <!-- <div *ngIf="item.action">Yes</div>
+                  <div *ngIf="!item.action">No</div> -->
+
+                <!-- switch bloğu -->
+                <!-- <div [ngSwitch]="item.action">
+                  <div *ngSwitchCase="true">Yes</div>
+                  <div *ngSwitchDefault>No</div>
+                </div> -->
+
+                <!-- If-else bloğu  -->
+                <!-- <div *ngIf="item.action;else noTemplate">
+                  Yes
+                </div>
+                <ng-template #noTemplate>No</ng-template> -->
+
+                <!-- If then bloğu -->
+                <!-- <div *ngIf="item.action;then noTemplate">
+                  Burası Gösterilmez.Buradaki div sadece ngIf yazımı için yer tutucu görevi görür.
+                  yani Yes bilgisi ekrana yazmaz ekrana yazmaz
+                </div>
+                <ng-template #noTemplate>No</ng-template> -->
+
+                <!-- If-then-else bloğu -->
+                <div *ngIf="item.action;then yesTemplate else noTemplate">
+                  Burası Gösterilmez.Buradaki div sadece ngIf yazımı için yer tutucu görevi görür.
+                </div>
+                <ng-template #noTemplate>No</ng-template>
+                <ng-template #yesTemplate>Yes</ng-template>
+              </td>
+              <td><input type="checkbox" [(ngModel)]="item.action"></td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-template>
+
     </div>
   </div>
 </div>

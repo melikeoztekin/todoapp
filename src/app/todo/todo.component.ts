@@ -33,4 +33,8 @@ export class TodoComponent {
     }
   }
 
+  //tamamlanmış elemanların sayısını göstermek için
+  displayCount(){
+    return this.model.items.filter(i=>i.action).length;
+  }
 }
