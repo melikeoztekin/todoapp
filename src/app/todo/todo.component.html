@@ -1,16 +1,19 @@
 <div class="container">
   <div class="row">
     <div class="col-5 mx-auto">
+
       <h3 class="bg-dark text-white p-3">
         {{ getName() }}' To-Do List
       </h3>
+
       <div class="input-group mb-3">
-        <input #txtItem type="text" class="form-control" (keyup.enter)="addItem(txtItem.value); txtItem.value='' ">
-        <button class="btn btn-outline-dark" (click)="addItem(txtItem.value); txtItem.value='' ">
+        <input type="text" class="form-control" (keyup.enter)="addItem();" [(ngModel)]="inputText">
+        <button class="btn btn-outline-dark" (click)="addItem();" [class]="getBtnClasses()">
           Add
         </button>
       </div>
-      <div class="form-check mb-3">
+
+      <div class=" form-check mb-3">
         <input type="checkbox" class="form-check-input" name="" id="displayAll" [(ngModel)]="displayAll">
         <label for="displayAll" class="form-check-label">Show All</label>
       </div>
@@ -36,36 +39,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of getItems(); let i=index;">
+            <tr *ngFor="let item of getItems(); let i=index;" [class]="{'bg-success':item.action, 'bg-danger'
+              :item.action==false}">
+              <!-- item.action larda değeri true olanların ve değeri false olanların arka plan rengini ayarladık -->
               <td>{{ i+1 }}</td>
               <td>{{ item.description }}</td>
               <td>
-                <!-- item.action ın true false değerlerine göre yes veya no yazdırma yolunu kullanabiliriz -->
-
-                <!-- If bloğu -->
-                <!-- <div *ngIf="item.action">Yes</div>
-                  <div *ngIf="!item.action">No</div> -->
-
-                <!-- switch bloğu -->
-                <!-- <div [ngSwitch]="item.action">
-                  <div *ngSwitchCase="true">Yes</div>
-                  <div *ngSwitchDefault>No</div>
-                </div> -->
-
-                <!-- If-else bloğu  -->
-                <!-- <div *ngIf="item.action;else noTemplate">
-                  Yes
-                </div>
-                <ng-template #noTemplate>No</ng-template> -->
-
-                <!-- If then bloğu -->
-                <!-- <div *ngIf="item.action;then noTemplate">
-                  Burası Gösterilmez.Buradaki div sadece ngIf yazımı için yer tutucu görevi görür.
-                  yani Yes bilgisi ekrana yazmaz ekrana yazmaz
-                </div>
-                <ng-template #noTemplate>No</ng-template> -->
-
-                <!-- If-then-else bloğu -->
                 <div *ngIf="item.action;then yesTemplate else noTemplate">
                   Burası Gösterilmez.Buradaki div sadece ngIf yazımı için yer tutucu görevi görür.
                 </div>

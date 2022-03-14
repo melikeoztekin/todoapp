@@ -16,6 +16,7 @@ export class TodoComponent {
   }
 
   displayAll : boolean = false;
+  inputText:string="";
 
   getItems(){
     if (this.displayAll) {
@@ -24,9 +25,10 @@ export class TodoComponent {
     return this.model.items.filter(item => item.action== false);
   }
 
-  addItem(value:string){
-    if(value != ""){
-      this.model.items.push({ description: value, action: false });
+  addItem(){
+    if(this.inputText != ""){
+      this.model.items.push({ description: this.inputText, action: false });
+      this.inputText = "";
     }
     else{
       alert("Fields cannot be left blank.");
@@ -36,5 +38,12 @@ export class TodoComponent {
   //tamamlanmış elemanların sayısını göstermek için
   displayCount(){
     return this.model.items.filter(i=>i.action).length;
+  }
+  
+  getBtnClasses(){
+    return {
+      'disabled':this.inputText.length==0, 
+      'btn-secondary': this.inputText.length==0, 
+      'btn-primary': this.inputText.length > 0}
   }
 }
